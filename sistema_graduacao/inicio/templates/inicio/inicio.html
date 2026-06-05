@@ -1,243 +1,406 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="fw-bold" style="color: #212529;">Painel Geral</h2>
-            <p class="text-muted">Bem-vindo ao controle do CT Braga</p>
-        </div>
-    </div>
 
-    <div class="row mb-5">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center">
-                    <div class="bg-success text-white rounded-circle p-3 me-3">
-                        <span style="font-size: 1.5rem;">👥</span>
+<div class="dashboard-content">
+
+    <div class="content-wrapper">
+
+        <!-- TOPO -->
+        <div class="mb-4">
+
+            <h2 class="fw-bold text-white mb-1">
+                Painel Geral
+            </h2>
+
+            <p class="text-secondary mb-0">
+                Bem-vindo ao controle do CT Braga
+            </p>
+
+        </div>
+
+        <!-- ESTATÍSTICAS -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-lg-4">
+                <div class="dashboard-card stat-card">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="icon-circle icon-green me-3">
+                            👥
+                        </div>
+
+                        <div>
+                            <p class="mb-1">Total de Alunos</p>
+
+                            <h2 class="fw-bold text-white mb-0">
+                                {{ total_alunos }}
+                            </h2>
+                        </div>
+
                     </div>
-                    <div>
-                        <p class="text-muted mb-0" style="font-size: 14px;">Total de Alunos</p>
-                        <h3 class="fw-bold mb-0" style="color: black;">{{ total_alunos }}</h3>
-                    </div>
+
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center">
-                    <div class="bg-dark text-white rounded-circle p-3 me-3">
-                        <span style="font-size: 1.5rem;">🥋</span>
+            <div class="col-lg-4">
+                <div class="dashboard-card stat-card">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="icon-circle icon-dark me-3">
+                            🥋
+                        </div>
+
+                        <div>
+                            <p class="mb-1">Modalidades</p>
+
+                            <h2 class="fw-bold text-white mb-0">
+                                {{ total_modalidades }}
+                            </h2>
+                        </div>
+
                     </div>
-                    <div>
-                        <p class="text-muted mb-0" style="font-size: 14px;">Modalidades</p>
-                        <h3 class="fw-bold mb-0" style="color: black;">{{ total_modalidades }}</h3>
-                    </div>
+
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center">
-                    <div class="bg-primary text-white rounded-circle p-3 me-3">
-                        <span style="font-size: 1.5rem;">💰</span>
+            <div class="col-lg-4">
+                <div class="dashboard-card stat-card">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="icon-circle icon-blue me-3">
+                            💰
+                        </div>
+
+                        <div>
+                            <p class="mb-1">Planos Ativos</p>
+
+                            <h2 class="fw-bold text-white mb-0">
+                                {{ total_planos }}
+                            </h2>
+                        </div>
+
                     </div>
-                    <div>
-                        <p class="text-muted mb-0" style="font-size: 14px;">Planos Ativos</p>
-                        <h3 class="fw-bold mb-0" style="color: black;">{{ total_planos }}</h3>
-                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <h4 class="fw-bold" style="font-size: 1.2rem;">Ações Rápidas</h4>
         </div>
-        
-        <div class="col-md-3 mb-3">
-            <a href="{% url 'lista_alunos' %}" class="btn btn-white shadow-sm w-100 py-3 text-start border-0">
-                <span class="me-2">📋</span> Lista de Alunos
-            </a>
-        </div>
-        <div class="col-md-3 mb-3">
-            <a href="{% url 'lista_modalidades' %}" class="btn btn-white shadow-sm w-100 py-3 text-start border-0">
-                <span class="me-2">🥋</span> Gerenciar Modalidades
-            </a>
-        </div>
-        <div class="col-md-3 mb-3">
-            <a href="{% url 'lista_planos' %}" class="btn btn-white shadow-sm w-100 py-3 text-start border-0">
-                <span class="me-2">💳</span> Planos de Pagamentos
-            </a>
-        </div>
-        <div class="col-md-3 mb-3">
-            <a href="#" class="btn btn-white shadow-sm w-100 py-3 text-start border-0">
-                <span class="me-2">⚙️</span> Configurações
-            </a>
-        </div>
-    </div>
-</div>
-<div class="container mt-4">
-    <h4 class="fw-bold mb-3"> 📅 Horário da Semana</h4>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
+        <!-- AÇÕES -->
+        <div class="mb-4">
+
+            <h4 class="fw-bold text-white mb-3">
+                Ações Rápidas
+            </h4>
+
+            <div class="row g-3">
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'lista_alunos' %}" class="quick-action">
+                        📋 Lista de Alunos
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'lista_modalidades' %}" class="quick-action">
+                        🥋 Modalidades
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="{% url 'lista_planos' %}" class="quick-action">
+                        💳 Planos
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="#" class="quick-action">
+                        ⚙️ Configurações
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- HORÁRIO -->
+        <div class="dashboard-card">
+
+            <h4 class="fw-bold mb-4 text-white">
+                📅 Horário da Semana
+            </h4>
 
             <div class="table-responsive">
-                <table class="table mb-0 text-center align-middle horario-table">
-                    <thead>
-                        <tr>
-                            <th style="width:120px">Horário</th>
-                            <th>Segunda</th>
-                            <th>Terça</th>
-                            <th>Quarta</th>
-                            <th>Quinta</th>
-                            <th>Sexta</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        <tr>
-                            <th>07:00</th>
-                            <td></td>
-                            <td class="jiu">Jiu-jitsu<br>Masters (30+)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+            <table class="table mb-0 text-center align-middle horario-table">
 
-                        <tr>
-                            <th>08:30</th>
-                            <td></td>
-                            <td class="nogi">Jiu-jitsu<br>Sem Kimono</td>
-                            <td class="jiu">Jiu-jitsu Adulto</td>
-                            <td class="judo">Judô Adulto</td>
-                            <td class="open">Open Mat</td>
-                        </tr>
+                <thead>
+                    <tr>
+                        <th style="width:120px">Horário</th>
+                        <th>Segunda</th>
+                        <th>Terça</th>
+                        <th>Quarta</th>
+                        <th>Quinta</th>
+                        <th>Sexta</th>
+                    </tr>
+                </thead>
 
-                        <tr>
-                            <th>12:30</th>
-                            <td class="comp">Competição</td>
-                            <td></td>
-                            <td class="comp">Competição</td>
-                            <td></td>
-                            <td class="comp">Competição</td>
-                        </tr>
+                <tbody>
 
-                        <tr>
-                            <th>17:00</th>
-                            <td class="kids">Judô Kids</td>
-                            <td></td>
-                            <td class="kids">Judô Kids</td>
-                            <td></td>
-                            <td class="kids">Jiu-jitsu Kids</td>
-                        </tr>
+                    <tr>
+                        <th>07:00</th>
+                        <td></td>
+                        <td class="jiu">Jiu-jitsu<br>Masters (30+)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
-                        <tr>
-                            <th>19:00</th>
-                            <td class="judo">Judô Juvenil</td>
-                            <td class="kids">Judô Kids</td>
-                            <td class="judo">Judô Juvenil</td>
-                            <td class="kids">Judô Kids</td>
-                            <td class="fem">Jiu-jitsu Feminino</td>
-                        </tr>
+                    <tr>
+                        <th>08:30</th>
+                        <td></td>
+                        <td class="nogi">Jiu-jitsu<br>Sem Kimono</td>
+                        <td class="jiu">Jiu-jitsu Adulto</td>
+                        <td class="judo">Judô Adulto</td>
+                        <td class="open">Open Mat</td>
+                    </tr>
 
-                        <tr>
-                            <th>20:00</th>
-                            <td class="jiu">Jiu-jitsu Adulto</td>
-                            <td class="nogi">Sem Kimono</td>
-                            <td class="jiu">Jiu-jitsu Adulto</td>
-                            <td class="nogi">Sem Kimono</td>
-                            <td class="open">Open Mat</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <tr>
+                        <th>12:30</th>
+                        <td class="comp">Competição</td>
+                        <td></td>
+                        <td class="comp">Competição</td>
+                        <td></td>
+                        <td class="comp">Competição</td>
+                    </tr>
+
+                    <tr>
+                        <th>17:00</th>
+                        <td class="kids">Judô Kids</td>
+                        <td></td>
+                        <td class="kids">Judô Kids</td>
+                        <td></td>
+                        <td class="kids">Jiu-jitsu Kids</td>
+                    </tr>
+
+                    <tr>
+                        <th>19:00</th>
+                        <td class="judo">Judô Juvenil</td>
+                        <td class="kids">Judô Kids</td>
+                        <td class="judo">Judô Juvenil</td>
+                        <td class="kids">Judô Kids</td>
+                        <td class="fem">Jiu-jitsu Feminino</td>
+                    </tr>
+
+                    <tr>
+                        <th>20:00</th>
+                        <td class="jiu">Jiu-jitsu Adulto</td>
+                        <td class="nogi">Sem Kimono</td>
+                        <td class="jiu">Jiu-jitsu Adulto</td>
+                        <td class="nogi">Sem Kimono</td>
+                        <td class="open">Open Mat</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
+
     </div>
+
 </div>
 <style>
-/* Estilo para deixar os botões de ação com cara de 'cards' clicáveis */
-.btn-white {
-    background-color: white;
-    color: #212529;
-    transition: transform 0.2s;
+.dashboard-content{
+    padding:20px;
 }
 
-.btn-white:hover {
-    transform: translateY(-3px);
-    background-color: #f1f1f1;
-    color: #000;
+.content-wrapper{
+    max-width:1200px;
+    margin:0 auto;
 }
 
-/* ===== HORÁRIO DA SEMANA ===== */
-
-.horario-wrapper {
-    padding: 0 12px 12px 12px;
+.dashboard-content h2,
+.dashboard-content h4{
+    color:#fff !important;
 }
 
-.horario-table {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 100%;
+.dashboard-content p{
+    color:#94a3b8 !important;
 }
 
-.horario-table th {
-    background: #343a40 !important;
-    color: white !important;
-    font-weight: 600;
-    font-size: 14px;
+/* CARD */
+
+.dashboard-card{
+    background:rgba(30,41,59,.90);
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.25);
 }
 
-.horario-table td {
-    font-size: 13px;
-    font-weight: 500;
-    height: 65px;
+/* CARDS ESTATÍSTICAS */
+
+.stat-card{
+    min-height:115px;
+    transition:.3s;
 }
 
-/* cores */
-.horario-table .jiu {
-    background-color: #e7f1ff !important;
+.stat-card:hover{
+    transform:translateY(-4px);
 }
 
-.horario-table .nogi {
-    background-color: #e3f7ff !important;
+.icon-circle{
+    width:68px;
+    height:68px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
 }
 
-.horario-table .judo {
-    background-color: #fff2e0 !important;
+.icon-green{
+    background:#10b981;
 }
 
-.horario-table .kids {
-    background-color: #f3f0ff !important;
+.icon-blue{
+    background:#2563eb;
 }
 
-.horario-table .comp {
-    background-color: #ffe5e5 !important;
+.icon-dark{
+    background:#111827;
 }
 
-.horario-table .open {
-    background-color: #e9f7ef !important;
+/* AÇÕES */
+
+.quick-action{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:65px;
+
+    background:rgba(30,41,59,.90);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-weight:600;
+
+    transition:.3s;
 }
 
-.horario-table .fem {
-    background-color: #ffe6f7 !important;
+.quick-action:hover{
+    background:#334155;
+    color:#fff;
+
+    transform:translateY(-3px);
 }
 
-/* bordas suaves */
-.horario-table td,
-.horario-table th {
-    border: 1px solid #e9ecef !important;
+/* TABELA */
+
+.horario-table{
+    color:white;
+    margin-bottom:0;
 }
 
-/* impedir tabela de esticar demais */
-.table-responsive {
-    padding: 10px;
+.horario-table thead th{
+    background:#111827 !important;
+
+    color:white !important;
+
+    border-color:#334155 !important;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.horario-table th{
+    background:#111827 !important;
+    color:white !important;
+    border-color:#334155 !important;
+}
+
+.horario-table td{
+    border-color:#334155 !important;
+
+    color:white;
+
+    font-size:13px;
+    font-weight:500;
+
+    height:65px;
+}
+
+/* CORES */
+
+.horario-table .jiu{
+    background:#334155 !important;
+}
+
+.horario-table .nogi{
+    background:#264653 !important;
+}
+
+.horario-table .judo{
+    background:#6b4f2d !important;
+}
+
+.horario-table .kids{
+    background:#4c3f91 !important;
+}
+
+.horario-table .comp{
+    background:#7f1d1d !important;
+}
+
+.horario-table .open{
+    background:#14532d !important;
+}
+
+.horario-table .fem{
+    background:#7c2d92 !important;
+}
+
+.table-responsive{
+    border-radius:14px;
+    overflow:hidden;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:991px){
+
+    .content-wrapper{
+        max-width:100%;
+    }
+
+    .dashboard-card{
+        padding:18px;
+    }
+
+    .icon-circle{
+        width:58px;
+        height:58px;
+        font-size:20px;
+    }
+
 }
 </style>
 {% endblock %}

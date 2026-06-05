@@ -1,127 +1,252 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="dashboard-content">
 
-        <h2 class="fw-bold">
-            Gestão de Planos
-        </h2>
+    <div class="container-planos">
 
-        <a href="{% url 'novo_plano' %}"
-           class="btn btn-success px-4">
-            + Novo Plano
-        </a>
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-    </div>
+            <div>
 
-    <div class="mb-4">
+                <h2 class="fw-bold text-white mb-1">
+                    💳 Gestão de Planos
+                </h2>
 
-        <button onclick="history.back()"
-                class="btn btn-secondary">
-            ← Voltar
-        </button>
+                <p class="text-secondary mb-0">
+                    Gerencie os planos cadastrados no sistema.
+                </p>
 
-        <a href="/"
-           class="btn btn-primary">
-            🏠 Início
-        </a>
+            </div>
 
-    </div>
+            <a href="{% url 'novo_plano' %}"
+               class="btn btn-success px-4">
 
-    <div class="tabela-planos bg-white shadow-sm rounded-4 p-4">
+                + Novo Plano
 
-        <div class="mb-3 text-secondary fw-semibold">
-            Total de planos: {{ planos|length }}
+            </a>
+
         </div>
 
-        <table class="table table-hover align-middle">
+        <div class="mb-4 d-flex gap-2">
 
-            <thead class="table-dark">
+            <button onclick="history.back()"
+                    class="btn btn-outline-light">
 
-                <tr>
+                ← Voltar
 
-                    <th>ID</th>
+            </button>
 
-                    <th>Nome do Plano</th>
+            <a href="{% url 'inicio' %}"
+               class="btn btn-primary">
 
-                    <th>Valor do Plano</th>
+                🏠 Início
 
-                    <th class="text-center">
-                        Ações
-                    </th>
+            </a>
 
-                </tr>
+        </div>
 
-            </thead>
+        <div class="dashboard-card">
 
-            <tbody>
+            <div class="mb-4">
 
-                {% for plano in planos %}
+                <span class="badge-total">
+                    Total de planos: {{ planos|length }}
+                </span>
 
-                <tr>
+            </div>
 
-                    <td>
-                        {{ plano.id }}
-                    </td>
+            <div class="table-responsive">
 
-                    <td>
+                <table class="table table-dark align-middle mb-0">
 
-                        <strong>
-                            {{ plano.nome_plano }}
-                        </strong>
+                    <thead>
 
-                    </td>
+                        <tr>
 
-                    <td>
+                            <th style="width:90px;">
+                                ID
+                            </th>
 
-                        <span class="fw-semibold">
-                            R$ {{ plano.valor_plano }}
-                        </span>
+                            <th>
+                                Nome do Plano
+                            </th>
 
-                    </td>
+                            <th style="width:180px;">
+                                Valor
+                            </th>
 
-                    <td class="text-center">
+                            <th class="text-center" style="width:170px;">
+                                Ações
+                            </th>
 
-                        <a href="{% url 'editar_plano' plano.id %}"
-                           class="btn btn-sm btn-primary">
+                        </tr>
 
-                            Editar
+                    </thead>
 
-                        </a>
+                    <tbody>
 
-                        <a href="{% url 'deletar_plano' plano.id %}"
-                           class="btn btn-sm btn-danger">
+                        {% for plano in planos %}
 
-                            Deletar
+                        <tr>
 
-                        </a>
+                            <td>
+                                #{{ plano.id }}
+                            </td>
 
-                    </td>
+                            <td>
 
-                </tr>
+                                <strong>
+                                    {{ plano.nome_plano }}
+                                </strong>
 
-                {% empty %}
+                            </td>
 
-                <tr>
+                            <td>
 
-                    <td colspan="4"
-                        class="text-center text-muted py-4">
+                                <span class="valor-plano">
+                                    R$ {{ plano.valor_plano }}
+                                </span>
 
-                        Nenhum plano cadastrado.
+                            </td>
 
-                    </td>
+                            <td class="text-center">
 
-                </tr>
+                                <a href="{% url 'editar_plano' plano.id %}"
+                                   class="btn btn-sm btn-primary me-1">
 
-                {% endfor %}
+                                    Editar
 
-            </tbody>
+                                </a>
 
-        </table>
+                                <a href="{% url 'deletar_plano' plano.id %}"
+                                   class="btn btn-sm btn-danger">
+
+                                    Deletar
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="4"
+                                class="text-center py-5 text-secondary">
+
+                                Nenhum plano cadastrado.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+<style>
+
+.container-planos{
+    max-width:1150px;
+    margin:0 auto;
+}
+
+.dashboard-card{
+    background:rgba(30,41,59,.90);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.text-secondary{
+    color:#94a3b8 !important;
+}
+
+.badge-total{
+    display:inline-block;
+    background:#111827;
+    border:1px solid #334155;
+    color:#cbd5e1;
+    padding:10px 16px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.valor-plano{
+    color:#10b981;
+    font-weight:700;
+    font-size:15px;
+}
+
+.table{
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #ffffff !important;
+    margin-bottom:0;
+}
+
+.table thead th{
+    background:#0f172a !important;
+    color:white !important;
+    border-color:#334155 !important;
+    padding:14px 16px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.table tbody td{
+    border-color:#334155 !important;
+    padding:14px 16px;
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:rgba(255,255,255,.03);
+}
+
+.table-responsive{
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.btn-sm{
+    padding:6px 12px;
+    font-size:13px;
+}
+
+.btn-success,
+.btn-primary,
+.btn-danger,
+.btn-outline-light{
+    border-radius:10px;
+}
+
+.btn-success{
+    font-weight:600;
+}
+
+@media (max-width:1200px){
+
+    .container-planos{
+        max-width:100%;
+    }
+
+}
+
+</style>
+
 {% endblock %}

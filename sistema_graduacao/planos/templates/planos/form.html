@@ -2,32 +2,139 @@
 
 {% block content %}
 
-<div class="container">
+<div class="dashboard-content">
 
-    <div class="tabela-planos p-4">
-        <h4 class="fw-bold mb-3">
-            {% if object %}
-                Editar plano
-            {% else %}
-                Novo plano
-            {% endif %}
-        </h4>
+    <div class="dashboard-card form-card">
+
+        <div class="mb-4">
+
+            <h2 class="fw-bold text-white">
+
+                {% if object %}
+                    ✏️ Editar Plano
+                {% else %}
+                    ➕ Novo Plano
+                {% endif %}
+
+            </h2>
+
+            <p class="text-secondary mb-0">
+                Preencha as informações do plano.
+            </p>
+
+        </div>
 
         <form method="POST">
+
             {% csrf_token %}
-            {{ form.as_p }}
 
-            <button class="btn btn-success">
-                Salvar
-            </button>
+            <div class="form-container">
 
-            <a href="{% url 'lista_planos' %}" 
-               class="btn btn-secondary">
-                Voltar
-            </a>
+                {{ form.as_p }}
+
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <div class="d-flex justify-content-end gap-2">
+
+                <a href="{% url 'lista_planos' %}"
+                   class="btn btn-outline-light px-4">
+                    Voltar
+                </a>
+
+                <button class="btn btn-success px-4">
+                    Salvar
+                </button>
+
+            </div>
+
         </form>
+
     </div>
 
 </div>
+
+<style>
+
+/* CARD */
+
+.form-card{
+    max-width:700px;
+    margin:40px auto;
+
+    background:rgba(30,41,59,.90);
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+    padding:30px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+/* SUBTEXTO */
+
+.text-secondary{
+    color:#94a3b8 !important;
+}
+
+/* FORMULÁRIO */
+
+.form-container p{
+    margin-bottom:20px;
+}
+
+.form-container label{
+    display:block;
+    color:white;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* INPUTS */
+
+.form-container input,
+.form-container select,
+.form-container textarea{
+
+    width:100%;
+
+    background:#1e293b !important;
+    border:1px solid #334155 !important;
+
+    color:white !important;
+
+    border-radius:12px !important;
+
+    padding:12px 14px !important;
+
+    transition:.3s;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus{
+
+    border-color:#10b981 !important;
+
+    box-shadow:
+        0 0 0 .2rem rgba(16,185,129,.20) !important;
+}
+
+/* PLACEHOLDER */
+
+.form-container input::placeholder,
+.form-container textarea::placeholder{
+    color:#94a3b8;
+}
+
+/* LINHA DIVISÓRIA */
+
+hr{
+    opacity:.15;
+}
+
+</style>
 
 {% endblock %}

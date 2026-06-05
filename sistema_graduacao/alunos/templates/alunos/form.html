@@ -2,32 +2,141 @@
 
 {% block content %}
 
-<div class="container">
+<div class="dashboard-content">
 
-    <div class="tabela-alunos p-4">
-        <h4 class="fw-bold mb-3">
-            {% if object %}
-                Editar Aluno
-            {% else %}
-                Novo Aluno
-            {% endif %}
-        </h4>
+    <div class="container-fluid" style="max-width: 1000px;">
 
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
+        <div class="dashboard-card">
 
-            <button class="btn btn-success">
-                Salvar
-            </button>
+            <div class="mb-4">
+                <h2 class="fw-bold text-white">
+                    
+                    {% if object %}
+                        Editar Aluno
+                    {% else %}
+                        Novo Aluno
+                    {% endif %}
+                </h2>
 
-            <a href="{% url 'lista_alunos' %}" 
-               class="btn btn-secondary">
-                Voltar
-            </a>
-        </form>
+                <p class="text-secondary mb-0">
+                    Preencha os dados do aluno para realizar o cadastro.
+                </p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Data de Início</label>
+                        {{ form.date_inicio }}
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Nome</label>
+                        {{ form.nome }}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Idade</label>
+                        {{ form.idade }}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Graus</label>
+                        {{ form.graus }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Modalidade</label>
+                        {{ form.modalidade }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Faixa Judô</label>
+                        {{ form.faixa_judo }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Faixa Jiu-Jitsu</label>
+                        {{ form.faixa_jiujitsu }}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Plano</label>
+                        {{ form.plano }}
+                    </div>
+
+                </div>
+
+                <hr class="border-secondary my-4">
+
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a href="{% url 'lista_alunos' %}"
+                       class="btn btn-outline-light px-4">
+                        Voltar
+                    </a>
+
+                    <button class="btn btn-success px-4">
+                        Salvar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
 </div>
+
+<style>
+
+.dashboard-card{
+    background: rgba(30,41,59,.85);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.text-secondary{
+    color:#94a3b8 !important;
+}
+
+.form-label{
+    color:#fff;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    min-height:45px;
+    padding:10px 14px;
+    background:#1e293b !important;
+    border:1px solid #334155 !important;
+    color:#fff !important;
+    border-radius:12px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#10b981 !important;
+    box-shadow:0 0 0 .2rem rgba(16,185,129,.25) !important;
+}
+
+select option{
+    background:#1e293b;
+    color:#fff;
+}
+
+</style>
 
 {% endblock %}

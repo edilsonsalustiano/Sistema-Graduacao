@@ -2,66 +2,141 @@
 
 {% block content %}
 
-<div class="container">
+<div class="dashboard-content">
 
-    <div class="tabela-alunos p-4">
-        <h4 class="fw-bold mb-3">
-            {% if object %}
-                Editar Aluno
-            {% else %}
-                Novo Aluno
-            {% endif %}
-        </h4>
+    <div class="dashboard-card">
+
+        <div class="mb-4">
+            <h2 class="fw-bold text-white">
+                {% if object %}
+                    Editar Aluno
+                {% else %}
+                    Novo Aluno
+                {% endif %}
+            </h2>
+
+            <p class="text-secondary mb-0">
+                Preencha os dados do aluno abaixo.
+            </p>
+        </div>
 
         <form method="POST">
             {% csrf_token %}
-            
-            <!-- Campos personalizados individualmente -->
-            <div class="mb-3">
-                <label for="id_date_inicio" class="form-label">Data de Início:</label>
-                {{ form.date_inicio }}
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-white">
+                        Data de Início
+                    </label>
+                    {{ form.date_inicio }}
+                </div>
+
+                <div class="col-md-8 mb-3">
+                    <label class="form-label text-white">
+                        Nome
+                    </label>
+                    {{ form.nome }}
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label class="form-label text-white">
+                        Idade
+                    </label>
+                    {{ form.idade }}
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-white">
+                        Faixa Judô
+                    </label>
+                    {{ form.faixa_judo }}
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label class="form-label text-white">
+                        Faixa Jiu-Jitsu
+                    </label>
+                    {{ form.faixa_jiujitsu }}
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label class="form-label text-white">
+                        Graus
+                    </label>
+                    {{ form.graus }}
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label class="form-label text-white">
+                        Modalidade
+                    </label>
+                    {{ form.modalidade }}
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label text-white">
+                        Plano
+                    </label>
+                    {{ form.plano }}
+                </div>
+
             </div>
 
-            <div class="mb-3">
-                <label for="id_nome" class="form-label">Nome:</label>
-                {{ form.nome }}
+            <div class="d-flex gap-2 mt-4">
+
+                <button class="btn btn-success px-4">
+                    Salvar
+                </button>
+
+                <a href="{% url 'lista_alunos' %}"
+                   class="btn btn-outline-light px-4">
+                    Voltar
+                </a>
+
             </div>
 
-            <div class="mb-3">
-                <label for="id_idade" class="form-label">Idade:</label>
-                {{ form.idade }}
-            </div>
-
-            <div class="mb-3">
-                <label for="id_faixa_judo" class="form-label">Faixa Judô:</label>
-                {{ form.faixa_judo }}
-            </div>
-
-            <div class="mb-3">
-                <label for="id_faixa_jiujitsu" class="form-label">Faixa Jiu-Jitsu:</label>
-                {{ form.faixa_jiujitsu }}
-            </div>
-
-            <div class="mb-3">
-                <label for="id_graus" class="form-label">Graus:</label>
-                {{ form.graus }}
-            </div>
-
-            <div class="mb-3">
-                <label for="id_modalidade" class="form-label">Modalidade:</label>
-                {{ form.modalidade }}
-            </div>
-
-            <div class="mb-3">
-                <label for="id_plano" class="form-label">Plano:</label>
-                {{ form.plano }}
-            </div>
-
-            <button class="btn btn-success">Salvar</button>
-            <a href="{% url 'lista_alunos' %}" class="btn btn-secondary">Voltar</a>
         </form>
+
     </div>
 
 </div>
+
+<style>
+/* Ajusta os campos do Django para o tema dark */
+
+input,
+select,
+textarea {
+    width: 100%;
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 10px 12px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 0.2rem rgba(16,185,129,.25) !important;
+}
+
+label {
+    font-weight: 600;
+}
+
+.dashboard-card {
+    background: rgba(30,41,59,.85);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.text-secondary {
+    color: #94a3b8 !important;
+}
+</style>
 
 {% endblock %}

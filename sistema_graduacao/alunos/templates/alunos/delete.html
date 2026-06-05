@@ -2,36 +2,120 @@
 
 {% block content %}
 
-<div class="container mt-5 d-flex justify-content-center">
+<div class="dashboard-content">
 
-    <div class="card p-4 shadow-sm"
-         style="max-width: 700px; width: 100%;">
+    <div class="dashboard-card delete-card">
 
-        <h3 class="mb-3">
-            Tem certeza que deseja deletar este aluno?
-        </h3>
+        <div class="delete-header">
+            <div class="delete-icon">
+                🗑️
+            </div>
 
-        <p class="fw-bold fs-5 text-danger">
-            {{ object.nome }}
-        </p>
+            <div>
+                <h2 class="fw-bold text-white mb-1">
+                    Confirmar Exclusão
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Esta ação não poderá ser desfeita.
+                </p>
+            </div>
+        </div>
+
+        <div class="delete-body">
+
+            <p class="delete-question">
+                Tem certeza que deseja deletar este aluno?
+            </p>
+
+            <div class="student-box">
+                {{ object.nome }}
+            </div>
+
+        </div>
+
+        <hr class="border-secondary my-4">
 
         <form method="POST">
-
             {% csrf_token %}
 
-            <button class="btn btn-danger">
-                Confirmar
-            </button>
+            <div class="d-flex justify-content-end gap-3">
 
-            <a href="{% url 'lista_alunos' %}"
-               class="btn btn-secondary">
-                Cancelar
-            </a>
+                <a href="{% url 'lista_alunos' %}"
+                   class="btn btn-outline-light px-4">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="btn btn-danger px-4">
+                    Confirmar Exclusão
+                </button>
+
+            </div>
 
         </form>
 
     </div>
 
 </div>
+
+<style>
+
+.delete-card{
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.delete-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.delete-icon{
+    width:70px;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+
+    background:rgba(239,68,68,.15);
+    border:1px solid rgba(239,68,68,.25);
+
+    border-radius:18px;
+}
+
+.delete-question{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.student-box{
+    background:#111827;
+    border:1px solid #334155;
+
+    padding:18px 20px;
+
+    border-radius:14px;
+
+    color:#f87171;
+    font-size:24px;
+    font-weight:700;
+
+    text-align:center;
+}
+
+.text-secondary{
+    color:#94a3b8 !important;
+}
+
+hr{
+    opacity:.15;
+}
+
+</style>
 
 {% endblock %}

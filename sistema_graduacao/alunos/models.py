@@ -2,6 +2,7 @@ from django.db import models
 from modalidades.models import Modalidade
 from planos.models import Plano
 
+
 class Aluno(models.Model):
     faixa_choices = [
         ('branca', 'Branca'),
@@ -16,7 +17,7 @@ class Aluno(models.Model):
     ]
 
     matricula = models.AutoField(primary_key=True)
-    date_inicio = models.DateField(null=True , blank=True)
+    date_inicio = models.DateField(null=True, blank=True)
     nome = models.CharField(max_length=350)
     idade = models.IntegerField()
     faixa_judo = models.CharField(max_length=20, choices=faixa_choices, blank=True, null=True)

@@ -5,7 +5,7 @@ from planos.models import Plano
 from alunos.models import Aluno
 
 
-class InicioView(LoginRequiredMixin,TemplateView):
+class InicioView(LoginRequiredMixin, TemplateView):
     template_name = 'inicio/inicio.html'
 
     def get_context_data(self, **kwargs):
@@ -14,7 +14,7 @@ class InicioView(LoginRequiredMixin,TemplateView):
         context['total_modalidades'] = Modalidade.objects.count()
         context['total_planos'] = Plano.objects.count()
         return context
-    
+
 
 class ModalidadeListView(ListView):
     model = Modalidade
@@ -26,4 +26,3 @@ class PlanoListView(ListView):
     model = Plano
     template_name = 'planos/list.html'
     context_object_name = 'planos'
-

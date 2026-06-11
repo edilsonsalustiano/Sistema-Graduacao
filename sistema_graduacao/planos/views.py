@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView,ListView,UpdateView,DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import Plano
 
 
@@ -27,6 +27,3 @@ class DeletePlanosView(DeleteView):
     model = Plano
     template_name = 'planos/delete.html'
     success_url = reverse_lazy('lista_planos')
-
-
-

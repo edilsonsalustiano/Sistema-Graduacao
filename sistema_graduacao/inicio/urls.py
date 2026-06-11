@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import InicioView, ModalidadeListView, PlanoListView
+from .views import InicioView
+
 
 urlpatterns = [
-    
+
     path('', InicioView.as_view(), name='inicio'),
-    path('planos/', PlanoListView.as_view(), name='lista_planos'),
 
 ]

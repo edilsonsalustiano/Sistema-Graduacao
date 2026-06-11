@@ -15,7 +15,5 @@ urlpatterns = [
     path('modalidades/', include('modalidades.urls')),
 
     path('planos/', include('planos.urls')),
-       
-   
 
 ]

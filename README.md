@@ -17,7 +17,7 @@ Python
 Django
 HTML5
 CSS3
-SQLite
+ PostgreSQL
 
 ⚙️ Como rodar o projeto
 1. Clonar o repositório

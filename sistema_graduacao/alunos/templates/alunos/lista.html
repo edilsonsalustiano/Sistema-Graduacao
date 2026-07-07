@@ -58,8 +58,12 @@
     margin-bottom:8px;
 }
 
-.faixa-container:last-child{
-    margin-bottom:0;
+.faixa-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom:8px;
 }
 
 .badge-faixa{
@@ -214,7 +218,7 @@
                             {{ aluno.date_inicio|date:"d/m/Y" }}
                         </td>
 
-                        <td>
+                        <td class="text-center">
                             {{ aluno.nome }}
                         </td>
 

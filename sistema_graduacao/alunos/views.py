@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from alunos.forms import AlunoForm
 from .models import Aluno
+
 
 
 class ListaAlunosView(LoginRequiredMixin, ListView):
@@ -17,14 +19,14 @@ class ListaAlunosView(LoginRequiredMixin, ListView):
 
 class CreateAlunoView(LoginRequiredMixin, CreateView):
     model = Aluno
-    fields = '__all__'
+    form_class = AlunoForm
     template_name = 'alunos/alunoform.html'
     success_url = reverse_lazy('lista_alunos')
 
 
 class UpdateAlunoView(LoginRequiredMixin, UpdateView):
     model = Aluno
-    fields = '__all__'
+    form_class = AlunoForm
     template_name = 'alunos/form.html'
     success_url = reverse_lazy('lista_alunos')
 

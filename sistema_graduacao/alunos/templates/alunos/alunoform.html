@@ -25,61 +25,59 @@
 
             <div class="row">
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label text-white">
-                        Data de Início
-                    </label>
-                    {{ form.date_inicio }}
-                </div>
+                    <div class="col-md-2 mb-3">
+                        <label class="form-label">Data de Início</label>
+                        {{ form.date_inicio }}
+                    </div>
 
-                <div class="col-md-8 mb-3">
-                    <label class="form-label text-white">
-                        Nome
-                    </label>
-                    {{ form.nome }}
-                </div>
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">Nome</label>
+                        {{ form.nome }}
+                    </div>
 
-                <div class="col-md-3 mb-3">
-                    <label class="form-label text-white">
-                        Idade
-                    </label>
-                    {{ form.idade }}
-                </div>
+                    <div class="col-md-1 mb-3">
+                        <label class="form-label">Idade</label>
+                        {{ form.idade }}
+                    </div>
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label text-white">
-                        Faixa Judô
-                    </label>
-                    {{ form.faixa_judo }}
-                </div>
+                    <div class="col-md-1 mb-3">
+                        <label class="form-label">Graus</label>
+                        {{ form.graus }}
+                    </div>
 
-                <div class="col-md-5 mb-3">
-                    <label class="form-label text-white">
-                        Faixa Jiu-Jitsu
-                    </label>
-                    {{ form.faixa_jiujitsu }}
-                </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Modalidade</label>
+                        {{ form.modalidade }}
+                    </div>
 
-                <div class="col-md-3 mb-3">
-                    <label class="form-label text-white">
-                        Graus
-                    </label>
-                    {{ form.graus }}
-                </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Faixa Judô</label>
+                        {{ form.faixa_judo }}
+                    </div>
 
-                <div class="col-md-5 mb-3">
-                    <label class="form-label text-white">
-                        Modalidade
-                    </label>
-                    {{ form.modalidade }}
-                </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Faixa Jiu-Jitsu</label>
+                        {{ form.faixa_jiujitsu }}
+                    </div>
+                    
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">CPF</label>
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label text-white">
-                        Plano
-                    </label>
-                    {{ form.plano }}
-                </div>
+                        {{ form.cpf }}
+
+                        {% if form.cpf.errors %}
+                            <div class="text-danger mt-1 small">
+                                {% for erro in form.cpf.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Plano</label>
+                        {{ form.plano }}
+                    </div>
 
             </div>
 

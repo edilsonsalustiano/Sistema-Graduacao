@@ -19,7 +19,7 @@ class Aluno(models.Model):
     matricula = models.AutoField(primary_key=True)
     date_inicio = models.DateField(null=True, blank=True)
     nome = models.CharField(max_length=350)
-    cpf = models.CharField(max_length=11, unique=True,)
+    cpf = models.CharField(max_length=14, unique=True)
     idade = models.IntegerField()
     faixa_judo = models.CharField(max_length=20, choices=faixa_choices, blank=True, null=True)
     faixa_jiujitsu = models.CharField(max_length=20, choices=faixa_choices, blank=True, null=True)

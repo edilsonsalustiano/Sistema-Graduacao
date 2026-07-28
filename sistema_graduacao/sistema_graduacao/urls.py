@@ -16,4 +16,6 @@ urlpatterns = [
 
     path('planos/', include('planos.urls')),
 
+    path('competicao/', include('competicao.urls'))
+
 ]

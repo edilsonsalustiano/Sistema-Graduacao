@@ -25,7 +25,7 @@ class UpdateCompeticoesView(LoginRequiredMixin, UpdateView):
     model = Competicoes
     form_class = CompeticoesForm
     template_name = "competicao/form.html"
-    success_url = reverse_lazy("listar_competicoes")
+    success_url = reverse_lazy("lista_competicoes")
 
 class DetailCompeticoesView(LoginRequiredMixin, DetailView):
     model = Competicoes
@@ -35,4 +35,4 @@ class DetailCompeticoesView(LoginRequiredMixin, DetailView):
 class DeleteCompeticoesView(LoginRequiredMixin, DeleteView):
     model = Competicoes
     template_name = "competicao/delete.html"
-    success_url = reverse_lazy("listar_competicoes")
+    success_url = reverse_lazy("lista_competicoes")

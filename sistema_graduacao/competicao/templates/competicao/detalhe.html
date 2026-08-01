@@ -11,7 +11,7 @@
             <div>
 
                 <h2 class="page-title">
-                    🏆 {{ competicao.nome }}
+                    🏆 {{ competicoes.nome }}
                 </h2>
 
                 <p class="page-subtitle mb-0">
@@ -20,7 +20,8 @@
 
             </div>
 
-            <a href="#"
+
+            <a href="{% url 'adicionar' competicoes.pk %}"
                class="btn btn-success">
 
                 + Adicionar Aluno
@@ -29,7 +30,9 @@
 
         </div>
 
+
         <div class="row g-3 mb-4">
+
 
             <div class="col-md-3">
 
@@ -37,11 +40,15 @@
 
                     <small>Data</small>
 
-                    <h5>{{ competicao.data|date:"d/m/Y" }}</h5>
+                    <h5>
+                        {{ competicoes.data|date:"d/m/Y" }}
+                    </h5>
 
                 </div>
 
             </div>
+
+
 
             <div class="col-md-3">
 
@@ -49,11 +56,15 @@
 
                     <small>Cidade</small>
 
-                    <h5>{{ competicao.cidade }}</h5>
+                    <h5>
+                        {{ competicoes.cidade }}
+                    </h5>
 
                 </div>
 
             </div>
+
+
 
             <div class="col-md-3">
 
@@ -61,11 +72,15 @@
 
                     <small>Local</small>
 
-                    <h5>{{ competicao.local }}</h5>
+                    <h5>
+                        {{ competicoes.local }}
+                    </h5>
 
                 </div>
 
             </div>
+
+
 
             <div class="col-md-3">
 
@@ -75,12 +90,18 @@
 
                     <h5>
 
-                        {% if competicao.status == "ABERTA" %}
+                        {% if competicoes.status == "ABERTA" %}
+
                             🟢 Aberta
-                        {% elif competicao.status == "ENCERRADA" %}
+
+                        {% elif competicoes.status == "ENCERRADA" %}
+
                             🟡 Encerrada
+
                         {% else %}
+
                             🔴 Finalizada
+
                         {% endif %}
 
                     </h5>
@@ -89,98 +110,170 @@
 
             </div>
 
+
         </div>
+
+
 
         <div class="dashboard-card mb-4">
 
+
             <h4 class="text-white mb-3">
-
                 📄 Informações
-
             </h4>
+
+
 
             <table class="table table-dark-custom">
 
                 <tbody>
 
-                    <tr>
-                        <th>Organização</th>
-                        <td>{{ competicao.organizacao }}</td>
-                    </tr>
 
                     <tr>
-                        <th>Observações</th>
-                        <td>{{ competicao.observacao|default:"Nenhuma observação." }}</td>
+
+                        <th>
+                            Organização
+                        </th>
+
+                        <td>
+                            {{ competicoes.organizacao }}
+                        </td>
+
                     </tr>
+
+
+
+                    <tr>
+
+                        <th>
+                            Observações
+                        </th>
+
+                        <td>
+                            {{ competicoes.observacao|default:"Nenhuma observação." }}
+                        </td>
+
+                    </tr>
+
 
                 </tbody>
 
+
             </table>
+
 
         </div>
 
+
+
+
+
         <div class="dashboard-card">
+
 
             <div class="d-flex justify-content-between align-items-center mb-3">
 
+
                 <h4 class="text-white">
-
                     👥 Alunos Inscritos
-
                 </h4>
+
+
 
                 <span class="badge bg-primary">
 
-                    {{ competicao.inscricaocompeticao_set.count }} inscritos
+                    {{ competicoes.inscricoes.count }} inscritos
 
                 </span>
 
+
             </div>
+
+
+
+
 
             <div class="table-responsive">
 
+
                 <table class="table table-dark-custom">
+
 
                     <thead>
 
                         <tr>
 
-                            <th>Aluno</th>
-                            <th>Categoria</th>
-                            <th>Peso</th>
-                            <th>Pago</th>
-                            <th>Ações</th>
+                            <th>
+                                Aluno
+                            </th>
+
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Peso
+                            </th>
+
+                            <th>
+                                Pago
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
 
                         </tr>
 
+
                     </thead>
+
+
+
 
                     <tbody>
 
-                        {% for inscricao in competicao.inscricaocompeticao_set.all %}
+
+                        {% for inscricao in competicoes.inscricoes.all %}
+
 
                         <tr>
 
-                            <td>{{ inscricao.aluno.nome }}</td>
 
-                            <td>{{ inscricao.categoria }}</td>
+                            <td>
+                                {{ inscricao.aluno.nome }}
+                            </td>
 
-                            <td>{{ inscricao.peso }}</td>
+
+                            <td>
+                                {{ inscricao.categoria }}
+                            </td>
+
+
+                            <td>
+                                {{ inscricao.peso }} kg
+                            </td>
+
 
                             <td>
 
                                 {% if inscricao.pago %}
+
                                     ✅ Pago
+
                                 {% else %}
+
                                     ❌ Pendente
+
                                 {% endif %}
 
                             </td>
 
+
                             <td>
 
-                                <a href="#"
-                                   class="btn btn-sm btn-danger">
+                                <a href="{% url 'remover_inscricao' inscricao.pk %}"
+                                class="btn btn-sm btn-danger">
 
                                     Remover
 
@@ -188,9 +281,12 @@
 
                             </td>
 
+
                         </tr>
 
+
                         {% empty %}
+
 
                         <tr>
 
@@ -201,26 +297,37 @@
 
                             </td>
 
+
                         </tr>
+
+
 
                         {% endfor %}
 
+
+
                     </tbody>
+
 
                 </table>
 
+
             </div>
+
 
         </div>
 
         <div class="mt-4 d-flex justify-content-end gap-2">
 
-            <a href="{% url 'editar_competicao' competicao.pk %}"
-               class="btn btn-primary">
+
+            <a href="{% url 'editar_competicao' competicoes.pk %}"
+               class="btn btn-sm btn-primary">
 
                 Editar Competição
 
             </a>
+
+
 
             <a href="{% url 'lista_competicoes' %}"
                class="btn btn-outline-light">
@@ -229,30 +336,49 @@
 
             </a>
 
+
         </div>
+
 
     </div>
 
+
 </div>
+
+
 
 <style>
 
 .dashboard-card{
+
     background:rgba(30,41,59,.85);
+
     border:1px solid rgba(255,255,255,.08);
+
     border-radius:20px;
+
     padding:25px;
+
     box-shadow:0 10px 30px rgba(0,0,0,.25);
+
 }
+
 
 .page-title{
+
     color:#fff;
+
     font-weight:700;
+
 }
 
+
 .page-subtitle{
+
     color:#94a3b8;
+
 }
+
 
 .info-card{
 
@@ -268,21 +394,31 @@
 
 }
 
+
 .info-card small{
+
     color:#94a3b8;
+
 }
 
+
 .info-card h5{
+
     color:white;
+
     margin-top:8px;
+
     font-weight:700;
+
 }
+
 
 .table-dark-custom{
 
     color:white;
 
 }
+
 
 .table-dark-custom th{
 
@@ -292,6 +428,7 @@
 
 }
 
+
 .table-dark-custom td{
 
     background:transparent !important;
@@ -300,6 +437,8 @@
 
 }
 
+
 </style>
+
 
 {% endblock %}

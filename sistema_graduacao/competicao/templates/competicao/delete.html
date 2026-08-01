@@ -9,126 +9,191 @@
         <div class="delete-header">
 
             <div class="delete-icon">
-                🏆
+                👤
             </div>
 
             <div>
 
                 <h2 class="fw-bold text-white mb-1">
-                    Confirmar Exclusão
+                    Confirmar Remoção
                 </h2>
 
                 <p class="text-secondary mb-0">
-                    Esta ação não poderá ser desfeita.
+                    O aluno será removido apenas desta competição.
                 </p>
 
             </div>
 
         </div>
 
-        <div class="delete-body">
+
+        <div class="delete-body mt-4">
 
             <p class="delete-question">
-                Tem certeza que deseja excluir esta competição?
+
+                Tem certeza que deseja remover este aluno?
+
             </p>
+
 
             <div class="competition-box">
 
+
                 <h4 class="mb-2">
-                    {{ object.nome }}
+
+                    {{ object.aluno.nome }}
+
                 </h4>
+
 
                 <div class="text-secondary">
 
-                    📅 {{ object.data|date:"d/m/Y" }}
 
-                    {% if object.cidade %}
-                        • 📍 {{ object.cidade }}
+                    🏆 {{ object.competicao.nome }}
+
+                    <br>
+
+                    📅 {{ object.competicao.data|date:"d/m/Y" }}
+
+
+                    {% if object.competicao.cidade %}
+
+                        <br>
+
+                        📍 {{ object.competicao.cidade }}
+
                     {% endif %}
+
 
                 </div>
 
+
             </div>
+
 
         </div>
 
+
+
         <hr class="border-secondary my-4">
 
+
+
         <form method="POST">
+
             {% csrf_token %}
+
 
             <div class="d-flex justify-content-end gap-3">
 
-                <a href="{% url 'lista_competicoes' %}"
+
+                <a href="{% url 'detalhes_competicao' object.competicao.pk %}"
                    class="btn btn-outline-light px-4">
 
                     Cancelar
 
                 </a>
 
+
+
                 <button type="submit"
                         class="btn btn-danger px-4">
 
-                    Confirmar Exclusão
+                    Confirmar Remoção
 
                 </button>
 
+
             </div>
+
 
         </form>
 
+
     </div>
 
+
 </div>
+
+
 
 <style>
 
 .delete-card{
+
     max-width:800px;
+
     margin:40px auto;
+
 }
+
 
 .dashboard-card{
+
     background:rgba(30,41,59,.85);
+
     border:1px solid rgba(255,255,255,.08);
+
     border-radius:20px;
+
     padding:30px;
+
     box-shadow:0 10px 30px rgba(0,0,0,.25);
+
 }
 
+
 .delete-header{
+
     display:flex;
+
     align-items:center;
+
     gap:18px;
+
 }
+
 
 .delete-icon{
 
     width:70px;
+
     height:70px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     font-size:32px;
 
     background:rgba(239,68,68,.15);
+
     border:1px solid rgba(239,68,68,.25);
 
     border-radius:18px;
+
 }
 
+
 .delete-question{
+
     color:white;
+
     font-size:20px;
+
     font-weight:600;
+
     margin-bottom:20px;
+
 }
+
 
 .competition-box{
 
     background:#111827;
+
     border:1px solid #334155;
 
     padding:20px;
@@ -136,21 +201,34 @@
     border-radius:14px;
 
     text-align:center;
+
 }
+
 
 .competition-box h4{
+
     color:#f87171;
+
     font-weight:700;
+
 }
+
 
 .text-secondary{
+
     color:#94a3b8 !important;
+
 }
+
 
 hr{
+
     opacity:.15;
+
 }
 
+
 </style>
+
 
 {% endblock %}

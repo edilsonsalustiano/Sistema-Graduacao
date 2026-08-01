@@ -1,5 +1,5 @@
 from django import forms
-from .models import Competicoes
+from .models import Competicoes, InscricaoCompeticao
 
 
 class CompeticoesForm(forms.ModelForm):
@@ -15,3 +15,14 @@ class CompeticoesForm(forms.ModelForm):
                 }
             )
         }
+
+class InscricaoCompeticaoForm(forms.ModelForm):
+
+    class Meta:
+        model = InscricaoCompeticao
+        fields = [
+            "aluno",
+            "categoria",
+            "peso",
+            "pago",
+        ]

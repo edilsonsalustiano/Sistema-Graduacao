@@ -1,5 +1,6 @@
 from django.db import models
 from alunos.models import Aluno
+from modalidades.models import Modalidade
 
 class Competicoes(models.Model):
 
@@ -8,6 +9,13 @@ class Competicoes(models.Model):
         ("ENCERRADA", "Encerrada"),
         ("FINALIZADA", "Finalizada"),
     ]
+
+    nome = models.CharField(max_length=200)
+    modalidade = models.ForeignKey(
+        Modalidade,
+        on_delete=models.PROTECT,
+        related_name="competicoes",
+    )
      
     nome = models.CharField(max_length=200)
     organizacao = models.CharField(max_length=200)

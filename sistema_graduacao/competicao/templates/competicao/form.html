@@ -31,12 +31,17 @@
 
                 <div class="row">
 
-                    <div class="col-md-8 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="form-label">Nome da Competição</label>
                         {{ form.nome }}
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Modalidade</label>
+                        {{ form.modalidade }}
+                    </div>
+
+                    <div class="col-md-3 mb-3">
                         <label class="form-label">Data</label>
                         {{ form.data }}
                     </div>
@@ -61,7 +66,6 @@
                         {{ form.local }}
                     </div>
 
-                    <!-- NOVO CAMPO -->
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Status da Competição</label>
                         {{ form.status }}
@@ -72,6 +76,8 @@
                         {{ form.observacao }}
                     </div>
 
+                </div>
+                
                 </div>
 
                 <hr class="border-secondary my-4">

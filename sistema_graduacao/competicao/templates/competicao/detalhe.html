@@ -202,26 +202,13 @@
                     <thead>
 
                         <tr>
-
-                            <th>
-                                Aluno
-                            </th>
-
-                            <th>
-                                Categoria
-                            </th>
-
-                            <th>
-                                Peso
-                            </th>
-
-                            <th>
-                                Pago
-                            </th>
-
-                            <th>
-                                Ações
-                            </th>
+                            <th>Aluno</th>
+                            <th>Faixa</th>
+                            <th>Categoria</th>
+                            <th>Peso</th>
+                            <th>Pago</th>
+                            <th>Ações</th>
+                        </tr>
 
                         </tr>
 
@@ -237,60 +224,69 @@
                         {% for inscricao in competicoes.inscricoes.all %}
 
 
+                    <tr>
+
+                        <td>
+                            {{ inscricao.aluno.nome }}
+                        </td>
+
+                        <td>
+
+                            {% if competicoes.modalidade.nome == "Judô" %}
+
+                                <span class="badge faixa-{{ inscricao.aluno.faixa_judo }}">
+                                    {{ inscricao.aluno.get_faixa_judo_display }}
+                                </span>
+
+
+                            {% elif competicoes.modalidade.nome == "Jiu Jitsu" %}
+
+                                <span class="badge faixa-{{ inscricao.aluno.faixa_jiujitsu }}">
+                                    {{ inscricao.aluno.get_faixa_jiujitsu_display }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ inscricao.categoria }}
+                        </td>
+
+                        <td>
+                            {{ inscricao.peso }} kg
+                        </td>
+
+                        <td>
+
+                            {% if inscricao.pago %}
+                                ✅ Pago
+                            {% else %}
+                                ❌ Pendente
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'remover_inscricao' inscricao.pk %}"
+                            class="btn btn-sm btn-danger">
+
+                                Remover
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+
                         <tr>
 
-
-                            <td>
-                                {{ inscricao.aluno.nome }}
-                            </td>
-
-
-                            <td>
-                                {{ inscricao.categoria }}
-                            </td>
-
-
-                            <td>
-                                {{ inscricao.peso }} kg
-                            </td>
-
-
-                            <td>
-
-                                {% if inscricao.pago %}
-
-                                    ✅ Pago
-
-                                {% else %}
-
-                                    ❌ Pendente
-
-                                {% endif %}
-
-                            </td>
-
-
-                            <td>
-
-                                <a href="{% url 'remover_inscricao' inscricao.pk %}"
-                                class="btn btn-sm btn-danger">
-
-                                    Remover
-
-                                </a>
-
-                            </td>
-
-
-                        </tr>
-
-
-                        {% empty %}
-
-
-                        <tr>
-
-                            <td colspan="5"
+                            <td colspan="6"
                                 class="text-center text-secondary py-4">
 
                                 Nenhum aluno inscrito nesta competição.
@@ -326,7 +322,6 @@
                 Editar Competição
 
             </a>
-
 
 
             <a href="{% url 'lista_competicoes' %}"

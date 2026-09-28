@@ -72,7 +72,7 @@ class AdicionarAlunoCompeticaoView(LoginRequiredMixin, CreateView):
 class RemoverInscricaoView(LoginRequiredMixin, DeleteView):
 
     model = InscricaoCompeticao
-    template_name = "competicao/delete.html"
+    template_name = "competicao/remover_inscricao.html"
 
     def get_success_url(self):
         return reverse(

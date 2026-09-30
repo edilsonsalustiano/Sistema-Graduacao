@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.dashboard-card{
+    background: rgba(30,41,59,.85);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.page-title{
+    color:#fff;
+    font-weight:700;
+}
+
+.page-subtitle{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.info-box{
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    height:100%;
+}
+
+.info-box small{
+    color:#94a3b8;
+    display:block;
+    margin-bottom:6px;
+}
+
+.info-box strong{
+    color:#fff;
+    font-size:20px;
+}
+
+.section-title{
+    color:#fff;
+    font-weight:600;
+}
+
+.table-dark-custom{
+    color:white;
+    margin-bottom:0;
+}
+
+.table-dark-custom thead th{
+    background:transparent !important;
+    color:white;
+    border-color:#334155 !important;
+    padding:15px;
+}
+
+.table-dark-custom td{
+    background:transparent !important;
+    color:white;
+    border-color:#334155 !important;
+    vertical-align:middle;
+}
+
+.table-dark-custom tbody tr:hover{
+    background:rgba(255,255,255,.03);
+}
+
+.badge-faixa{
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    min-width:80px;
+    display:inline-block;
+}
+
+.faixa-branca{ background:#f1f1f1; color:#000; }
+.faixa-cinza{ background:#95a5a6; color:white; }
+.faixa-amarelo{ background:#f1c40f; color:black; }
+.faixa-laranja{ background:#e67e22; color:white; }
+.faixa-verde{ background:#27ae60; color:white; }
+.faixa-azul{ background:#2980b9; color:white; }
+.faixa-roxa{ background:#8e44ad; color:white; }
+.faixa-marrom{ background:#8b5e3c; color:white; }
+.faixa-preta{ background:#000; color:white; }
+
+.btn-dark-card{
+    background:#1e293b;
+    color:white;
+    border:1px solid #334155;
+}
+
+.btn-dark-card:hover{
+    background:#334155;
+    color:white;
+}
+
+</style>
+
+<div class="dashboard-content">
+
+    <div class="dashboard-card mb-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h2 class="page-title">
+                    🥋 {{ aula.turma }}
+                </h2>
+
+                <p class="page-subtitle mb-0">
+                    Informações da aula e alunos matriculados.
+                </p>
+            </div>
+
+            <a href="{% url 'adicionar_aluno_aula' aula.pk %}"
+               class="btn btn-success">
+                + Adicionar Aluno
+            </a>
+
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <small>Professor</small>
+                    <strong>{{ aula.professor }}</strong>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <small>Turma</small>
+                    <strong>{{ aula.turma }}</strong>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <small>Alunos</small>
+                    <strong>{{ aula.alunos.count }}</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-card mb-4">
+
+        <h4 class="section-title mb-3">🕒 Horários</h4>
+
+        {% for horario in aula.horarios.all %}
+            <span class="badge-faixa faixa-azul me-2 mb-2">
+                {{ horario.get_dia_semana_display }} às {{ horario.hora|time:"H:i" }}
+            </span>
+        {% empty %}
+            <p class="text-secondary mb-0">Nenhum horário cadastrado.</p>
+        {% endfor %}
+
+    </div>
+
+    <div class="dashboard-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h4 class="section-title mb-0">👥 Alunos</h4>
+
+            <span class="badge bg-primary">
+                {{ aula.alunos.count }} alunos
+            </span>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-dark-custom align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Aluno</th>
+                        <th>Faixas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for aluno in aula.alunos.all %}
+
+                    <tr>
+
+                        <td>#{{ aluno.matricula }}</td>
+
+                        <td>{{ aluno.nome }}</td>
+
+                        <td>
+                            {% if aluno.faixa_judo %}
+                                <span class="badge-faixa faixa-{{ aluno.faixa_judo }}">
+                                    Judô: {{ aluno.get_faixa_judo_display }}
+                                </span>
+                            {% endif %}
+
+                            {% if aluno.faixa_jiujitsu %}
+                                <span class="badge-faixa faixa-{{ aluno.faixa_jiujitsu }}">
+                                    Jiu-Jitsu: {{ aluno.get_faixa_jiujitsu_display }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <form method="POST"
+                                  action="{% url 'remover_aluno_aula' aula.pk aluno.pk %}"
+                                  onsubmit="return confirm('Remover este aluno da aula?');">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger">
+                                    Remover
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4"
+                            class="text-center py-5 text-secondary">
+
+                            Nenhum aluno matriculado nesta aula.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+
+        <a href="{% url 'editar_aula' aula.pk %}"
+           class="btn btn-primary">
+            Editar Aula
+        </a>
+
+        <a href="{% url 'lista_aula' %}"
+           class="btn btn-outline-light">
+            Voltar
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

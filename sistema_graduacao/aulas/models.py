@@ -5,6 +5,11 @@ class Aula(models.Model):
 
     professor = models.CharField(max_length=200)
     turma = models.CharField(max_length=200)
+    alunos = models.ManyToManyField(
+        'alunos.Aluno',
+        blank=True,
+        related_name='aulas',
+    )
 
     def __str__(self):
         return f"{self.professor} - {self.turma}"

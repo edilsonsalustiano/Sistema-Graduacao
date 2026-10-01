@@ -7,6 +7,10 @@ class AlunoForm(forms.ModelForm):
         model = Aluno
         fields = "__all__"
 
+        widgets = {
+            "modalidades": forms.CheckboxSelectMultiple(),
+        }
+
     def clean_cpf(self):
         cpf = self.cleaned_data["cpf"]
 

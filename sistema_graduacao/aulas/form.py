@@ -10,8 +10,23 @@ class AulaForm(forms.ModelForm):
         fields = "__all__"
 
         widgets = {
-            "professor": forms.TextInput(attrs={"class": "form-control"}),
-            "turma": forms.TextInput(attrs={"class": "form-control"}),
+            "professor": forms.TextInput(
+                attrs={
+                    "class": "form-control"
+                }
+            ),
+
+            "turma": forms.TextInput(
+                attrs={
+                    "class": "form-control"
+                }
+            ),
+
+            "modalidade": forms.Select(
+                attrs={
+                    "class": "form-select"
+                }
+            ),
         }
 
 
@@ -46,4 +61,11 @@ class AdicionarAlunoForm(forms.Form):
 
     def __init__(self, *args, aula=None, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["aluno"].queryset = Aluno.objects.exclude(aulas=aula).order_by("nome")
+
+        if aula and aula.modalidade:
+            self.fields["aluno"].queryset = (
+                Aluno.objects
+                .filter(modalidades=aula.modalidade)
+                .exclude(aulas=aula)
+                .order_by("nome")
+            )

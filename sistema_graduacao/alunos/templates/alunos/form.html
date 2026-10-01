@@ -10,12 +10,13 @@
 
             <div class="mb-4">
                 <h2 class="fw-bold text-white">
-                    
+
                     {% if object %}
                         Editar Aluno
                     {% else %}
                         Novo Aluno
                     {% endif %}
+
                 </h2>
 
                 <p class="text-secondary mb-0">
@@ -48,25 +49,65 @@
                         {{ form.graus }}
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Modalidade</label>
-                        {{ form.modalidade }}
+
+                    <!-- MODALIDADES -->
+
+                    <div class="col-md-5 mb-3">
+
+                        <label class="form-label">Modalidades</label>
+
+                        <div class="modalidades-container">
+
+                            {% for checkbox in form.modalidades %}
+
+                                <label class="modalidade-option">
+
+                                    {{ checkbox.tag }}
+
+                                    <span class="modalidade-check"></span>
+
+                                    <span class="modalidade-nome">
+                                        {{ checkbox.choice_label }}
+                                    </span>
+
+                                </label>
+
+                            {% endfor %}
+
+                        </div>
+
+                        <small class="text-secondary">
+                            Selecione uma ou mais modalidades.
+                        </small>
+
                     </div>
+
+
+                    <!-- FAIXA JUDÔ -->
 
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Faixa Judô</label>
                         {{ form.faixa_judo }}
                     </div>
 
+
+                    <!-- FAIXA JIU-JITSU -->
+
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Faixa Jiu-Jitsu</label>
                         {{ form.faixa_jiujitsu }}
                     </div>
-                    
+
+
+                    <!-- CPF -->
+
                     <div class="col-md-5 mb-3">
                         <label class="form-label">CPF</label>
                         {{ form.cpf }}
                     </div>
+
+
+                    <!-- PLANO -->
 
                     <div class="col-md-5 mb-3">
                         <label class="form-label">Plano</label>
@@ -75,17 +116,48 @@
 
                 </div>
 
+
+                <!-- MENSAGENS DE ERRO -->
+
+                {% if form.errors %}
+
+                    <div class="alert alert-danger mt-3">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div>
+                                    <strong>{{ field.label }}:</strong>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
+
                 <hr class="border-secondary my-4">
+
+
+                <!-- BOTÕES -->
 
                 <div class="d-flex justify-content-end gap-2">
 
                     <a href="{% url 'lista_alunos' %}"
                        class="btn btn-outline-light px-4">
+
                         Voltar
+
                     </a>
 
-                    <button class="btn btn-success px-4">
+                    <button type="submit"
+                            class="btn btn-success px-4">
+
                         Salvar
+
                     </button>
 
                 </div>
@@ -98,15 +170,25 @@
 
 </div>
 
+
 <style>
+
+/* CARD */
 
 .dashboard-card{
     background: rgba(30,41,59,.85);
+
     border: 1px solid rgba(255,255,255,.08);
+
     border-radius: 20px;
+
     padding: 25px 30px;
+
     box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
+
+
+/* TEXTO */
 
 .text-secondary{
     color:#94a3b8 !important;
@@ -114,32 +196,211 @@
 
 .form-label{
     color:#fff;
+
     font-weight:600;
+
     margin-bottom:8px;
 }
+
+
+/* INPUTS */
 
 input,
 select,
 textarea{
+
     width:100%;
+
     min-height:45px;
+
     padding:10px 14px;
+
     background:#1e293b !important;
+
     border:1px solid #334155 !important;
+
     color:#fff !important;
+
     border-radius:12px !important;
 }
+
 
 input:focus,
 select:focus,
 textarea:focus{
+
     border-color:#10b981 !important;
-    box-shadow:0 0 0 .2rem rgba(16,185,129,.25) !important;
+
+    box-shadow:
+        0 0 0 .2rem
+        rgba(16,185,129,.25) !important;
 }
 
+
 select option{
+
     background:#1e293b;
+
     color:#fff;
+}
+
+
+/* ================================= */
+/* MODALIDADES */
+/* ================================= */
+
+.modalidades-container{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+
+.modalidade-option{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 18px;
+
+    min-width:150px;
+
+    background:#1e293b;
+
+    border:1px solid #334155;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    transition:all .2s ease;
+}
+
+
+/* Efeito ao passar o mouse */
+
+.modalidade-option:hover{
+
+    border-color:#10b981;
+
+    transform:translateY(-1px);
+}
+
+
+/* Esconde checkbox original */
+
+.modalidade-option input{
+
+    position:absolute;
+
+    opacity:0;
+
+    width:0;
+
+    height:0;
+}
+
+
+/* Caixa visual */
+
+.modalidade-check{
+
+    width:20px;
+
+    height:20px;
+
+    border:2px solid #64748b;
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:all .2s ease;
+}
+
+
+/* Modalidade selecionada */
+
+.modalidade-option:has(input:checked){
+
+    border-color:#10b981;
+
+    background:rgba(16,185,129,.12);
+}
+
+
+/* Caixa selecionada */
+
+.modalidade-option:has(input:checked) .modalidade-check{
+
+    background:#10b981;
+
+    border-color:#10b981;
+}
+
+
+/* Check */
+
+.modalidade-option:has(input:checked)
+.modalidade-check::after{
+
+    content:"✓";
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+
+/* Nome da modalidade selecionada */
+
+.modalidade-option:has(input:checked)
+.modalidade-nome{
+
+    color:#10b981;
+}
+
+
+.modalidade-nome{
+
+    font-weight:600;
+}
+
+
+/* ================================= */
+/* RESPONSIVIDADE */
+/* ================================= */
+
+@media (max-width: 768px){
+
+    .dashboard-card{
+
+        padding:20px;
+    }
+
+    .modalidade-option{
+
+        width:100%;
+
+        min-width:0;
+    }
+
 }
 
 </style>

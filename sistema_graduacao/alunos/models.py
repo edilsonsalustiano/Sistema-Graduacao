@@ -21,11 +21,35 @@ class Aluno(models.Model):
     nome = models.CharField(max_length=350)
     cpf = models.CharField(max_length=14, unique=True)
     idade = models.IntegerField()
-    faixa_judo = models.CharField(max_length=20, choices=faixa_choices, blank=True, null=True)
-    faixa_jiujitsu = models.CharField(max_length=20, choices=faixa_choices, blank=True, null=True)
+
+    faixa_judo = models.CharField(
+        max_length=20,
+        choices=faixa_choices,
+        blank=True,
+        null=True
+    )
+
+    faixa_jiujitsu = models.CharField(
+        max_length=20,
+        choices=faixa_choices,
+        blank=True,
+        null=True
+    )
+
     graus = models.IntegerField(default=0)
-    modalidade = models.ForeignKey(Modalidade, on_delete=models.PROTECT, null=True, blank=True)
-    plano = models.ForeignKey(Plano, on_delete=models.PROTECT, null=True, blank=True)
+
+    modalidades = models.ManyToManyField(
+        Modalidade,
+        related_name="alunos",
+        blank=True
+    )
+
+    plano = models.ForeignKey(
+        Plano,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return f'{self.matricula} - {self.nome}'

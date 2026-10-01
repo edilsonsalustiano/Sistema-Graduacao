@@ -16,6 +16,7 @@
                     {% else %}
                         Nova Aula
                     {% endif %}
+
                 </h2>
 
                 <p class="text-secondary mb-0">
@@ -28,80 +29,150 @@
 
                 <div class="row">
 
+                    <!-- PROFESSOR -->
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Professor</label>
+
+                        <label class="form-label">
+                            Professor
+                        </label>
+
                         {{ form.professor }}
+
                         {{ form.professor.errors }}
+
                     </div>
 
+
+                    <!-- MODALIDADE -->
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Turma</label>
+
+                        <label class="form-label">
+                            Modalidade
+                        </label>
+
+                        {{ form.modalidade }}
+
+                        {{ form.modalidade.errors }}
+
+                    </div>
+
+
+                    <!-- TURMA -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Turma
+                        </label>
+
                         {{ form.turma }}
+
                         {{ form.turma.errors }}
+
                     </div>
 
                 </div>
 
+
                 <hr class="border-secondary my-4">
 
-                <h5 class="text-white mb-3">🕒 Horários</h5>
+
+                <h5 class="text-white mb-3">
+                    🕒 Horários
+                </h5>
+
 
                 {{ formset.management_form }}
+
                 {{ formset.non_form_errors }}
+
 
                 <div id="horarios-container">
 
                     {% for f in formset %}
+
                     <div class="row align-items-end mb-3 horario-form">
 
                         {{ f.id }}
 
+
                         <div class="col-md-5">
-                            <label class="form-label">Dia da semana</label>
+
+                            <label class="form-label">
+                                Dia da semana
+                            </label>
+
                             {{ f.dia_semana }}
+
                             {{ f.dia_semana.errors }}
+
                         </div>
+
 
                         <div class="col-md-4">
-                            <label class="form-label">Hora</label>
+
+                            <label class="form-label">
+                                Hora
+                            </label>
+
                             {{ f.hora }}
+
                             {{ f.hora.errors }}
+
                         </div>
 
+
                         <div class="col-md-3">
+
                             {% if f.instance.pk %}
+
                                 <label class="text-white">
                                     {{ f.DELETE }} Remover
                                 </label>
+
                             {% else %}
+
                                 <button type="button"
                                         class="btn btn-outline-danger btn-remover">
                                     Remover
                                 </button>
+
                             {% endif %}
+
                         </div>
 
                     </div>
+
                     {% endfor %}
 
                 </div>
 
-                <button type="button" id="add-horario"
+
+                <button type="button"
+                        id="add-horario"
                         class="btn btn-outline-light mb-3">
+
                     + Adicionar horário
+
                 </button>
 
+
                 <hr class="border-secondary my-4">
+
 
                 <div class="d-flex justify-content-end gap-2">
 
                     <a href="{% url 'lista_aula' %}"
                        class="btn btn-outline-light px-4">
+
                         Voltar
+
                     </a>
 
+
                     <button class="btn btn-success px-4">
+
                         Salvar
+
                     </button>
 
                 </div>
@@ -114,46 +185,90 @@
 
 </div>
 
-<!-- modelo de uma linha nova de horário -->
+
+<!-- MODELO DE UMA LINHA NOVA DE HORÁRIO -->
+
 <template id="empty-form">
+
     <div class="row align-items-end mb-3 horario-form">
 
         <div class="col-md-5">
-            <label class="form-label">Dia da semana</label>
+
+            <label class="form-label">
+                Dia da semana
+            </label>
+
             {{ formset.empty_form.dia_semana }}
+
         </div>
+
 
         <div class="col-md-4">
-            <label class="form-label">Hora</label>
+
+            <label class="form-label">
+                Hora
+            </label>
+
             {{ formset.empty_form.hora }}
+
         </div>
 
+
         <div class="col-md-3">
-            <button type="button" class="btn btn-outline-danger btn-remover">
+
+            <button type="button"
+                    class="btn btn-outline-danger btn-remover">
+
                 Remover
+
             </button>
+
         </div>
 
     </div>
+
 </template>
 
+
 <script>
+
 const container = document.getElementById('horarios-container');
-const totalForms = document.getElementById('id_horarios-TOTAL_FORMS');
-const modelo = document.getElementById('empty-form').innerHTML;
+
+const totalForms =
+    document.getElementById('id_horarios-TOTAL_FORMS');
+
+const modelo =
+    document.getElementById('empty-form').innerHTML;
+
 
 document.getElementById('add-horario').addEventListener('click', function () {
+
     const indice = parseInt(totalForms.value);
-    container.insertAdjacentHTML('beforeend', modelo.replace(/__prefix__/g, indice));
+
+    container.insertAdjacentHTML(
+        'beforeend',
+        modelo.replace(/__prefix__/g, indice)
+    );
+
     totalForms.value = indice + 1;
+
 });
 
+
 container.addEventListener('click', function (e) {
+
     if (e.target.classList.contains('btn-remover')) {
-        e.target.closest('.horario-form').remove();
+
+        e.target
+            .closest('.horario-form')
+            .remove();
+
     }
+
 });
+
 </script>
+
 
 <style>
 

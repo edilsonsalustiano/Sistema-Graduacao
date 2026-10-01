@@ -52,6 +52,20 @@
     margin-bottom:0;
 }
 
+/* Alinhamento geral da tabela */
+.table-dark-custom th,
+.table-dark-custom td{
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* Nome do aluno alinhado à esquerda */
+.table-dark-custom th:nth-child(2),
+.table-dark-custom td:nth-child(2){
+    text-align:left;
+}
+
+/* Cabeçalho */
 .table-dark-custom thead th{
     background:transparent !important;
     color:white;
@@ -59,6 +73,7 @@
     padding:15px;
 }
 
+/* Conteúdo */
 .table-dark-custom td{
     background:transparent !important;
     color:white;
@@ -66,10 +81,21 @@
     vertical-align:middle;
 }
 
+/* Efeito ao passar o mouse */
 .table-dark-custom tbody tr:hover{
     background:rgba(255,255,255,.03);
 }
 
+/* Container das faixas */
+.faixas-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+/* Badge das faixas */
 .badge-faixa{
     padding:6px 14px;
     border-radius:20px;
@@ -157,11 +183,17 @@
         <h4 class="section-title mb-3">🕒 Horários</h4>
 
         {% for horario in aula.horarios.all %}
+
             <span class="badge-faixa faixa-azul me-2 mb-2">
                 {{ horario.get_dia_semana_display }} às {{ horario.hora|time:"H:i" }}
             </span>
+
         {% empty %}
-            <p class="text-secondary mb-0">Nenhum horário cadastrado.</p>
+
+            <p class="text-secondary mb-0">
+                Nenhum horário cadastrado.
+            </p>
+
         {% endfor %}
 
     </div>
@@ -170,7 +202,9 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 
-            <h4 class="section-title mb-0">👥 Alunos</h4>
+            <h4 class="section-title mb-0">
+                👥 Alunos
+            </h4>
 
             <span class="badge bg-primary">
                 {{ aula.alunos.count }} alunos
@@ -183,12 +217,27 @@
             <table class="table table-dark-custom align-middle">
 
                 <thead>
+
                     <tr>
-                        <th>Matrícula</th>
-                        <th>Aluno</th>
-                        <th>Faixas</th>
-                        <th>Ações</th>
+
+                        <th>
+                            Matrícula
+                        </th>
+
+                        <th>
+                            Aluno
+                        </th>
+
+                        <th>
+                            Faixa
+                        </th>
+
+                        <th>
+                            Ação
+                        </th>
+
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -197,33 +246,62 @@
 
                     <tr>
 
-                        <td>#{{ aluno.matricula }}</td>
-
-                        <td>{{ aluno.nome }}</td>
-
                         <td>
-                            {% if aluno.faixa_judo %}
-                                <span class="badge-faixa faixa-{{ aluno.faixa_judo }}">
-                                    Judô: {{ aluno.get_faixa_judo_display }}
-                                </span>
-                            {% endif %}
-
-                            {% if aluno.faixa_jiujitsu %}
-                                <span class="badge-faixa faixa-{{ aluno.faixa_jiujitsu }}">
-                                    Jiu-Jitsu: {{ aluno.get_faixa_jiujitsu_display }}
-                                </span>
-                            {% endif %}
+                            #{{ aluno.matricula }}
                         </td>
 
                         <td>
+                            {{ aluno.nome }}
+                        </td>
+
+                        <td>
+
+                            <div class="faixas-container">
+
+                                {% if aula.modalidade.nome == "Judô" %}
+
+                                    {% if aluno.faixa_judo %}
+                                        <span class="badge-faixa faixa-{{ aluno.faixa_judo }}">
+                                            {{ aluno.get_faixa_judo_display }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-secondary">
+                                            Sem faixa
+                                        </span>
+                                    {% endif %}
+
+                                {% elif aula.modalidade.nome == "Jiu Jitsu" %}
+
+                                    {% if aluno.faixa_jiujitsu %}
+                                        <span class="badge-faixa faixa-{{ aluno.faixa_jiujitsu }}">
+                                            {{ aluno.get_faixa_jiujitsu_display }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-secondary">
+                                            Sem faixa
+                                        </span>
+                                    {% endif %}
+
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+                        <td>
+
                             <form method="POST"
                                   action="{% url 'remover_aluno_aula' aula.pk aluno.pk %}"
                                   onsubmit="return confirm('Remover este aluno da aula?');">
+
                                 {% csrf_token %}
+
                                 <button class="btn btn-sm btn-danger">
                                     Remover
                                 </button>
+
                             </form>
+
                         </td>
 
                     </tr>

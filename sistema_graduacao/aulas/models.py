@@ -1,4 +1,5 @@
 from django.db import models
+from modalidades.models import Modalidade
 
 
 class Aula(models.Model):
@@ -9,6 +10,13 @@ class Aula(models.Model):
         'alunos.Aluno',
         blank=True,
         related_name='aulas',
+    )
+    modalidade = models.ForeignKey(
+        'modalidades.Modalidade',
+        on_delete=models.PROTECT,
+        related_name='aulas',
+        null=True,
+        blank=True
     )
 
     def __str__(self):

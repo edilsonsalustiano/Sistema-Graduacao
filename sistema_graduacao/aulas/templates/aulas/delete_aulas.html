@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-content">
+
+    <div class="dashboard-card delete-card">
+
+        <div class="delete-header">
+
+            <div class="delete-icon">
+                🥋
+            </div>
+
+            <div>
+                <h2 class="fw-bold text-white mb-1">
+                    Confirmar Exclusão
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    A aula será excluída permanentemente, junto com seus horários e vínculos.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="delete-body mt-4">
+
+            <p class="delete-question">
+                Tem certeza que deseja excluir esta aula?
+            </p>
+
+
+            <div class="aula-box">
+
+                <h4 class="mb-3">
+                    {{ object.turma }}
+                </h4>
+
+
+                {% if object.modalidade %}
+
+                    <div class="aula-info">
+                        🥋
+                        <strong>Modalidade:</strong>
+                        {{ object.modalidade.nome }}
+                    </div>
+
+                {% endif %}
+
+
+                {% if object.professor %}
+
+                    <div class="aula-info">
+                        👨‍🏫
+                        <strong>Professor:</strong>
+                        {{ object.professor }}
+                    </div>
+
+                {% endif %}
+
+
+                {% if object.horarios.all %}
+
+                    <div class="aula-info">
+                        🕒
+                        <strong>Horários:</strong>
+
+                        {% for horario in object.horarios.all %}
+
+                            {{ horario.get_dia_semana_display }}
+                            às
+                            {{ horario.hora|time:"H:i" }}
+
+                            {% if not forloop.last %}
+                                •
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <hr class="border-secondary my-4">
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="d-flex justify-content-end gap-3">
+
+                <a href="{% url 'detalhe_aula' object.pk %}"
+                   class="btn btn-outline-light px-4">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="btn btn-danger px-4">
+                    Confirmar Exclusão
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.delete-card{
+    max-width:800px;
+    margin:40px auto;
+}
+
+.dashboard-card{
+    background:rgba(30,41,59,.85);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.delete-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.delete-icon{
+    width:70px;
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:32px;
+
+    background:rgba(239,68,68,.15);
+    border:1px solid rgba(239,68,68,.25);
+
+    border-radius:18px;
+}
+
+.delete-question{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.aula-box{
+    background:#111827;
+    border:1px solid #334155;
+
+    padding:20px;
+
+    border-radius:14px;
+
+    text-align:center;
+}
+
+.aula-box h4{
+    color:#f87171;
+    font-weight:700;
+}
+
+.aula-info{
+    color:#cbd5e1;
+    margin-top:10px;
+    font-size:15px;
+}
+
+.aula-info strong{
+    color:white;
+}
+
+.text-secondary{
+    color:#94a3b8 !important;
+}
+
+hr{
+    opacity:.15;
+}
+
+</style>
+
+{% endblock %}

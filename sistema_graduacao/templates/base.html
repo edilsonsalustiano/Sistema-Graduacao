@@ -7,7 +7,8 @@
 
     <title>Sistema de Graduação</title>
 
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <!-- Favicon da aba do navegador -->
+    <link rel="icon" type="image/png" href="{% static 'alunos/logo.png' %}?v=2">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -237,7 +238,7 @@
 
         <div class="logo-area">
 
-            <img src="{% static 'alunos/logo.png' %}" class="logo-ct">
+            <img src="{% static 'alunos/logo.png' %}" class="logo-ct" alt="Logo CT Braga">
 
             <div class="logo-title">
                 Sistema de Graduação
@@ -261,14 +262,14 @@
 
             <a href="{% url 'lista_aula' %}">
                 🗓️ Aulas
-            </a>   
+            </a>
 
             <a href="{% url 'lista_planos' %}">
                 💳 Planos
             </a>
 
             <a href="{% url 'lista_competicoes' %}">
-               🏆 Competicões
+                🏆 Competições
             </a>
 
         </nav>

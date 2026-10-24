@@ -147,3 +147,37 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/inicio/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Configuração de logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'detalhado': {
+            'format': (
+                '{asctime} - {levelname} - '
+                '{name} - {message}'
+            ),
+            'style': '{',
+            'datefmt': '%d/%m/%Y %H:%M:%S',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'detalhado',
+        },
+    },
+
+    'loggers': {
+        'login': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+

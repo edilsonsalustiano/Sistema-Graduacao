@@ -1,11 +1,13 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from .views import login_view
 
 urlpatterns = [
-    path('', auth_views.LoginView.as_view(
-        template_name='login/login.html',
-        redirect_authenticated_user=True
-    ), name='login'),
+    path('', login_view, name='login'),
 
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(),
+        name='logout'
+    ),
 ]

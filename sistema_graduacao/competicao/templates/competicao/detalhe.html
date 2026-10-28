@@ -9,7 +9,6 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
 
             <div>
-
                 <h2 class="page-title">
                     🏆 {{ competicoes.nome }}
                 </h2>
@@ -17,423 +16,301 @@
                 <p class="page-subtitle mb-0">
                     Informações da competição e atletas inscritos.
                 </p>
-
             </div>
-
 
             <a href="{% url 'adicionar' competicoes.pk %}"
                class="btn btn-success">
-
                 + Adicionar Aluno
-
             </a>
 
         </div>
 
-
         <div class="row g-3 mb-4">
 
-
             <div class="col-md-3">
-
                 <div class="info-card">
-
                     <small>Data</small>
-
                     <h5>
                         {{ competicoes.data|date:"d/m/Y" }}
                     </h5>
-
                 </div>
-
             </div>
 
-
-
             <div class="col-md-3">
-
                 <div class="info-card">
-
                     <small>Cidade</small>
-
                     <h5>
                         {{ competicoes.cidade }}
                     </h5>
-
                 </div>
-
             </div>
 
-
-
             <div class="col-md-3">
-
                 <div class="info-card">
-
                     <small>Local</small>
-
                     <h5>
                         {{ competicoes.local }}
                     </h5>
-
                 </div>
-
             </div>
-
-
 
             <div class="col-md-3">
-
                 <div class="info-card">
-
                     <small>Status</small>
-
                     <h5>
-
                         {% if competicoes.status == "ABERTA" %}
-
                             🟢 Aberta
-
                         {% elif competicoes.status == "ENCERRADA" %}
-
                             🟡 Encerrada
-
                         {% else %}
-
                             🔴 Finalizada
-
                         {% endif %}
-
                     </h5>
-
                 </div>
-
             </div>
-
 
         </div>
 
-
-
         <div class="dashboard-card mb-4">
-
 
             <h4 class="text-white mb-3">
                 📄 Informações
             </h4>
 
-
-
             <table class="table table-dark-custom">
-
                 <tbody>
-
-
                     <tr>
-
-                        <th>
-                            Organização
-                        </th>
-
-                        <td>
-                            {{ competicoes.organizacao }}
-                        </td>
-
+                        <th>Organização</th>
+                        <td>{{ competicoes.organizacao }}</td>
                     </tr>
 
-
-
                     <tr>
-
-                        <th>
-                            Observações
-                        </th>
-
+                        <th>Observações</th>
                         <td>
                             {{ competicoes.observacao|default:"Nenhuma observação." }}
                         </td>
-
                     </tr>
-
-
                 </tbody>
-
-
             </table>
-
 
         </div>
 
-
-
-
-
         <div class="dashboard-card">
-
 
             <div class="d-flex justify-content-between align-items-center mb-3">
 
-
-                <h4 class="text-white">
+                <h4 class="text-white mb-0">
                     👥 Alunos Inscritos
                 </h4>
 
-
-
                 <span class="badge bg-primary">
-
                     {{ competicoes.inscricoes.count }} inscritos
-
                 </span>
-
 
             </div>
 
-
-
-
-
             <div class="table-responsive">
-
 
                 <table class="table table-dark-custom">
 
-
                     <thead>
-
                         <tr>
                             <th>Aluno</th>
                             <th>Faixa</th>
                             <th>Categoria</th>
                             <th>Peso</th>
                             <th>Pago</th>
-                            <th>Ações</th>
+                            <th class="text-center">Ações</th>
                         </tr>
-
-                        </tr>
-
-
                     </thead>
-
-
-
 
                     <tbody>
 
-
                         {% for inscricao in competicoes.inscricoes.all %}
 
+                            <tr>
 
-                    <tr>
+                                <td class="align-middle">
+                                    {{ inscricao.aluno.nome }}
+                                </td>
 
-                        <td>
-                            {{ inscricao.aluno.nome }}
-                        </td>
+                                <td class="align-middle">
 
-                        <td>
+                                    {% if competicoes.modalidade.nome == "Judô" %}
 
-                            {% if competicoes.modalidade.nome == "Judô" %}
+                                        <span class="badge faixa-{{ inscricao.aluno.faixa_judo }}">
+                                            {{ inscricao.aluno.get_faixa_judo_display }}
+                                        </span>
 
-                                <span class="badge faixa-{{ inscricao.aluno.faixa_judo }}">
-                                    {{ inscricao.aluno.get_faixa_judo_display }}
-                                </span>
+                                    {% elif competicoes.modalidade.nome == "Jiu Jitsu" %}
 
+                                        <span class="badge faixa-{{ inscricao.aluno.faixa_jiujitsu }}">
+                                            {{ inscricao.aluno.get_faixa_jiujitsu_display }}
+                                        </span>
 
-                            {% elif competicoes.modalidade.nome == "Jiu Jitsu" %}
+                                    {% endif %}
 
-                                <span class="badge faixa-{{ inscricao.aluno.faixa_jiujitsu }}">
-                                    {{ inscricao.aluno.get_faixa_jiujitsu_display }}
-                                </span>
+                                </td>
 
-                            {% endif %}
+                                <td class="align-middle">
+                                    {{ inscricao.categoria }}
+                                </td>
 
-                        </td>
+                                <td class="align-middle">
+                                    {{ inscricao.peso }} kg
+                                </td>
 
-                        <td>
-                            {{ inscricao.categoria }}
-                        </td>
+                                <td class="align-middle">
 
-                        <td>
-                            {{ inscricao.peso }} kg
-                        </td>
+                                    {% if inscricao.pago %}
+                                        <span class="text-success">✅ Pago</span>
+                                    {% else %}
+                                        <span class="text-danger">❌ Pendente</span>
+                                    {% endif %}
 
-                        <td>
+                                </td>
 
-                            {% if inscricao.pago %}
-                                ✅ Pago
-                            {% else %}
-                                ❌ Pendente
-                            {% endif %}
+                                <td class="text-center align-middle">
 
-                        </td>
+                                    <div class="acoes-inscricao">
 
-                        <td>
+                                        <a href="{% url 'editar_inscricao' inscricao.pk %}"
+                                           class="btn btn-sm btn-primary">
+                                            Editar
+                                        </a>
 
-                            <a href="{% url 'remover_inscricao' inscricao.pk %}"
-                            class="btn btn-sm btn-danger">
+                                        <a href="{% url 'remover_inscricao' inscricao.pk %}"
+                                           class="btn btn-sm btn-danger">
+                                            Remover
+                                        </a>
 
-                                Remover
+                                    </div>
 
-                            </a>
+                                </td>
 
-                        </td>
+                            </tr>
 
-                    </tr>
+                        {% empty %}
 
-
-                    {% empty %}
-
-
-                        <tr>
-
-                            <td colspan="6"
-                                class="text-center text-secondary py-4">
-
-                                Nenhum aluno inscrito nesta competição.
-
-                            </td>
-
-
-                        </tr>
-
-
+                            <tr>
+                                <td colspan="6"
+                                    class="text-center text-secondary py-4">
+                                    Nenhum aluno inscrito nesta competição.
+                                </td>
+                            </tr>
 
                         {% endfor %}
 
-
-
                     </tbody>
-
 
                 </table>
 
-
             </div>
-
 
         </div>
 
         <div class="mt-4 d-flex justify-content-end gap-2">
 
-
             <a href="{% url 'editar_competicao' competicoes.pk %}"
                class="btn btn-sm btn-primary">
-
                 Editar Competição
-
             </a>
-
 
             <a href="{% url 'lista_competicoes' %}"
                class="btn btn-outline-light">
-
                 Voltar
-
             </a>
-
 
         </div>
 
-
     </div>
-
 
 </div>
 
-
-
 <style>
 
-.dashboard-card{
-
-    background:rgba(30,41,59,.85);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:20px;
-
-    padding:25px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-
+.dashboard-card {
+    background: rgba(30, 41, 59, .85);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
 }
 
-
-.page-title{
-
-    color:#fff;
-
-    font-weight:700;
-
+.page-title {
+    color: #fff;
+    font-weight: 700;
 }
 
-
-.page-subtitle{
-
-    color:#94a3b8;
-
+.page-subtitle {
+    color: #94a3b8;
 }
 
-
-.info-card{
-
-    background:#111827;
-
-    border:1px solid #334155;
-
-    border-radius:15px;
-
-    padding:20px;
-
-    text-align:center;
-
+.info-card {
+    background: #111827;
+    border: 1px solid #334155;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
 }
 
-
-.info-card small{
-
-    color:#94a3b8;
-
+.info-card small {
+    color: #94a3b8;
 }
 
-
-.info-card h5{
-
-    color:white;
-
-    margin-top:8px;
-
-    font-weight:700;
-
+.info-card h5 {
+    color: white;
+    margin-top: 8px;
+    font-weight: 700;
 }
 
-
-.table-dark-custom{
-
-    color:white;
-
+.table-dark-custom {
+    color: white;
+    vertical-align: middle;
 }
 
-
-.table-dark-custom th{
-
-    background:#1e293b !important;
-
-    color:white;
-
+.table-dark-custom th {
+    background: #1e293b !important;
+    color: white;
 }
 
-
-.table-dark-custom td{
-
-    background:transparent !important;
-
-    color:white;
-
+.table-dark-custom td {
+    background: transparent !important;
+    color: white;
 }
 
+/* Alinhamento dos botões de ação */
+
+.table-dark-custom th:last-child {
+    text-align: center;
+}
+
+.acoes-inscricao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.acoes-inscricao .btn {
+    min-width: 64px;
+}
+
+/* Ajustes para telas menores */
+
+@media (max-width: 768px) {
+
+    .dashboard-card {
+        padding: 16px;
+    }
+
+    .acoes-inscricao {
+        justify-content: flex-start;
+    }
+
+}
 
 </style>
-
 
 {% endblock %}

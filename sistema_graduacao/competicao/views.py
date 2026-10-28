@@ -41,6 +41,13 @@ class DeleteCompeticoesView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("lista_competicoes")
 
 
+class UpdateAlunoCompeticoesView(LoginRequiredMixin, UpdateView):
+    model = InscricaoCompeticao
+    form_class = CompeticoesForm
+    template_name = "competicao/editar_inscricao.html"
+    success_url = reverse_lazy("lista_competicoes")
+
+
 class AdicionarAlunoCompeticaoView(LoginRequiredMixin, CreateView):
 
     model = InscricaoCompeticao

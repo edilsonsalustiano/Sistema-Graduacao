@@ -25,65 +25,132 @@
 
             <div class="row">
 
-                    <div class="col-md-2 mb-3">
-                        <label class="form-label">Data de Início</label>
-                        {{ form.date_inicio }}
+                <!-- DATA DE INÍCIO -->
+
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">Data de Início</label>
+                    {{ form.date_inicio }}
+                </div>
+
+                <!-- NOME -->
+
+                <div class="col-md-5 mb-3">
+                    <label class="form-label">Nome</label>
+                    {{ form.nome }}
+                </div>
+
+                <!-- IDADE -->
+
+                <div class="col-md-1 mb-3">
+                    <label class="form-label">Idade</label>
+                    {{ form.idade }}
+                </div>
+
+                <!-- GRAUS -->
+
+                <div class="col-md-1 mb-3">
+                    <label class="form-label">Graus</label>
+                    {{ form.graus }}
+                </div>
+
+                <!-- MODALIDADES -->
+
+                <div class="col-md-3 mb-3">
+
+                    <label class="form-label">Modalidades</label>
+
+                    <div class="modalidades-container">
+
+                        {% for checkbox in form.modalidades %}
+
+                            <label class="modalidade-option">
+
+                                {{ checkbox.tag }}
+
+                                <span class="modalidade-check"></span>
+
+                                <span class="modalidade-nome">
+                                    {{ checkbox.choice_label }}
+                                </span>
+
+                            </label>
+
+                        {% empty %}
+
+                            <p class="text-warning mb-0">
+                                Nenhuma modalidade cadastrada.
+                            </p>
+
+                        {% endfor %}
+
                     </div>
 
-                    <div class="col-md-5 mb-3">
-                        <label class="form-label">Nome</label>
-                        {{ form.nome }}
-                    </div>
+                    {% if form.modalidades.errors %}
+                        <div class="text-danger mt-1 small">
+                            {{ form.modalidades.errors }}
+                        </div>
+                    {% endif %}
 
-                    <div class="col-md-1 mb-3">
-                        <label class="form-label">Idade</label>
-                        {{ form.idade }}
-                    </div>
+                    <small class="text-secondary">
+                        Selecione uma ou mais modalidades.
+                    </small>
 
-                    <div class="col-md-1 mb-3">
-                        <label class="form-label">Graus</label>
-                        {{ form.graus }}
-                    </div>
+                </div>
 
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Modalidade</label>
-                        {{ form.modalidade }}
-                    </div>
+                <!-- FAIXA JUDÔ -->
 
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Faixa Judô</label>
-                        {{ form.faixa_judo }}
-                    </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Faixa Judô</label>
+                    {{ form.faixa_judo }}
+                </div>
 
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Faixa Jiu-Jitsu</label>
-                        {{ form.faixa_jiujitsu }}
-                    </div>
-                    
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">CPF</label>
+                <!-- FAIXA JIU-JITSU -->
 
-                        {{ form.cpf }}
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Faixa Jiu-Jitsu</label>
+                    {{ form.faixa_jiujitsu }}
+                </div>
 
-                        {% if form.cpf.errors %}
-                            <div class="text-danger mt-1 small">
-                                {% for erro in form.cpf.errors %}
-                                    {{ erro }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
+                <!-- CPF -->
 
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Plano</label>
-                        {{ form.plano }}
-                    </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">CPF</label>
+
+                    {{ form.cpf }}
+
+                    {% if form.cpf.errors %}
+                        <div class="text-danger mt-1 small">
+                            {% for erro in form.cpf.errors %}
+                                {{ erro }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- PLANO -->
+
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Plano</label>
+                    {{ form.plano }}
+                </div>
 
             </div>
 
+            <!-- ERROS GERAIS DO FORMULÁRIO -->
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger mt-3">
+                    {% for erro in form.non_field_errors %}
+                        <div>{{ erro }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- BOTÕES -->
+
             <div class="d-flex gap-2 mt-4">
 
-                <button class="btn btn-success px-4">
+                <button type="submit" class="btn btn-success px-4">
                     Salvar
                 </button>
 
@@ -101,40 +168,153 @@
 </div>
 
 <style>
-/* Ajusta os campos do Django para o tema dark */
 
-input,
-select,
-textarea {
-    width: 100%;
-    background: #1e293b !important;
-    border: 1px solid #334155 !important;
-    color: white !important;
-    border-radius: 12px !important;
-    padding: 10px 12px !important;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #10b981 !important;
-    box-shadow: 0 0 0 0.2rem rgba(16,185,129,.25) !important;
-}
-
-label {
-    font-weight: 600;
-}
+/* CARD */
 
 .dashboard-card {
-    background: rgba(30,41,59,.85);
-    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(30, 41, 59, .85);
+    border: 1px solid rgba(255, 255, 255, .08);
     border-radius: 20px;
     padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .20);
 }
+
+/* TEXTO */
 
 .text-secondary {
     color: #94a3b8 !important;
 }
+
+.form-label {
+    display: block;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* CAMPOS DO FORMULÁRIO */
+
+.dashboard-card input:not([type="checkbox"]),
+.dashboard-card select,
+.dashboard-card textarea {
+    width: 100%;
+    min-height: 45px;
+    box-sizing: border-box;
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    padding: 10px 12px !important;
+}
+
+.dashboard-card input:focus,
+.dashboard-card select:focus,
+.dashboard-card textarea:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 .2rem rgba(16, 185, 129, .25) !important;
+    outline: none;
+}
+
+.dashboard-card select option {
+    background: #1e293b;
+    color: #fff;
+}
+
+/* MODALIDADES */
+
+.modalidades-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modalidade-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.modalidade-option:hover {
+    border-color: #10b981;
+    transform: translateY(-1px);
+}
+
+/* CHECKBOX */
+
+.modalidade-option input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-grid;
+    place-content: center;
+    flex: 0 0 20px;
+    width: 20px !important;
+    height: 20px !important;
+    min-height: 20px;
+    margin: 0;
+    padding: 0 !important;
+    background: #1e293b !important;
+    border: 2px solid #64748b !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    box-shadow: none !important;
+}
+
+/* CHECKBOX SELECIONADA */
+
+.modalidade-option input[type="checkbox"]:checked {
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+}
+
+.modalidade-option input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* DESTAQUE DA MODALIDADE SELECIONADA */
+
+.modalidade-option:has(input[type="checkbox"]:checked) {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, .12);
+}
+
+.modalidade-option:has(input[type="checkbox"]:checked) .modalidade-nome {
+    color: #10b981;
+}
+
+.modalidade-nome {
+    font-weight: 600;
+}
+
+/* ACESSIBILIDADE */
+
+.modalidade-option input[type="checkbox"]:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 3px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    .dashboard-card {
+        padding: 20px;
+    }
+
+}
+
 </style>
 
 {% endblock %}
